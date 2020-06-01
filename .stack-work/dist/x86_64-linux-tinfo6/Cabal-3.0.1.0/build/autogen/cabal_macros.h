@@ -122,10 +122,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "proyecto-vacio-0.1.0.0-B55rRcTfCpC9xgSAy4q1Oy"
+#define CURRENT_PACKAGE_KEY "proyecto-vacio-0.1.0.0-G9BVYRNa0WrBBJOltRJEHv"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "proyecto-vacio-0.1.0.0-B55rRcTfCpC9xgSAy4q1Oy"
+#define CURRENT_COMPONENT_ID "proyecto-vacio-0.1.0.0-G9BVYRNa0WrBBJOltRJEHv"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"
