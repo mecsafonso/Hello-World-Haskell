@@ -1,3 +1,1 @@
-# Proyecto vacío
-
-Este repo fue creado para tener un nuevo proyecto Stack ya configurado.
+Este repo fue creado para tener mis cosas de Haskell en un solo lugar.
