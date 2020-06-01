@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: cab0e4a0225372d91b34fb6444fdc608592671efe02e5a555bd030c286bb79c1
+-- hash: f472aaef32ec43257c16ba67de4589cbec4389d7e4ab2b972970d0c42d34bd47
 
 name:           proyecto-vacio
 version:        0.1.0.0
@@ -39,6 +39,7 @@ test-suite proyecto-vacio-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      FuncionesUtiles
       Paths_proyecto_vacio
   hs-source-dirs:
       test
