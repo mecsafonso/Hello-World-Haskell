@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/home/mecs/Hello-World-Haskell/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/bin"
-libdir     = "/home/mecs/Hello-World-Haskell/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/lib/x86_64-linux-ghc-8.8.3/proyecto-vacio-0.1.0.0-B55rRcTfCpC9xgSAy4q1Oy"
-dynlibdir  = "/home/mecs/Hello-World-Haskell/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/lib/x86_64-linux-ghc-8.8.3"
-datadir    = "/home/mecs/Hello-World-Haskell/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/share/x86_64-linux-ghc-8.8.3/proyecto-vacio-0.1.0.0"
-libexecdir = "/home/mecs/Hello-World-Haskell/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/libexec/x86_64-linux-ghc-8.8.3/proyecto-vacio-0.1.0.0"
-sysconfdir = "/home/mecs/Hello-World-Haskell/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/etc"
+bindir     = "/home/mecs/Hello-World-Haskell/Hierbas&Ratones/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/bin"
+libdir     = "/home/mecs/Hello-World-Haskell/Hierbas&Ratones/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/lib/x86_64-linux-ghc-8.8.3/proyecto-vacio-0.1.0.0-B55rRcTfCpC9xgSAy4q1Oy"
+dynlibdir  = "/home/mecs/Hello-World-Haskell/Hierbas&Ratones/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/lib/x86_64-linux-ghc-8.8.3"
+datadir    = "/home/mecs/Hello-World-Haskell/Hierbas&Ratones/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/share/x86_64-linux-ghc-8.8.3/proyecto-vacio-0.1.0.0"
+libexecdir = "/home/mecs/Hello-World-Haskell/Hierbas&Ratones/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/libexec/x86_64-linux-ghc-8.8.3/proyecto-vacio-0.1.0.0"
+sysconfdir = "/home/mecs/Hello-World-Haskell/Hierbas&Ratones/.stack-work/install/x86_64-linux-tinfo6/e358769447a2a3ee0ce09940962ac687980080e2149c7bd25dbb3e5ba8a5f0fe/8.8.3/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "proyecto_vacio_bindir") (\_ -> return bindir)
