@@ -3,20 +3,6 @@ import Text.Show.Functions
 
 laVerdad = True
 
-
-------------------------------------------------------------------------------------------------------------------------------
-{-
-filtrarPalabrasTerminadasEn :: String -> [String] -> [String]
-filtrarPalabrasTerminadasEn terminacion = filter (not.(palabraTerminadaEn terminacion))
-
-palabraTerminadaEn :: String -> String -> Bool
-palabraTerminadaEn terminacion palabra =  ( drop (ultimosNDigitos terminacion palabra) palabra ) == terminacion
-
-ultimosNDigitos :: String -> String -> Int
-ultimosNDigitos terminacion palabra = (length palabra - length terminacion) -}
-
-------------------------------------------------------------------------------------------------------------------------------
-
 ---- MODELO DE PARCIAL: MINIGOLFITO 
 
 -- Modelo inicial
@@ -33,9 +19,25 @@ data Habilidad = Habilidad {
 } deriving (Eq, Show)
 
 -- Jugadores de ejemplo
-bart = UnJugador { nombre ="Bart", padre ="Homero", habilidad = Habilidad 25 60}
-todd = UnJugador {nombre="Todd", padre = "Ned", habilidad = (Habilidad 15 80)}
-rafa = UnJugador { nombre ="Rafa", padre= "Gorgory", habilidad = (Habilidad 10 1)}
+bart = UnJugador { 
+  nombre ="Bart",
+  padre ="Homero", 
+  habilidad = Habilidad 25 60
+}
+
+todd = UnJugador {
+  nombre="Todd",
+  padre = "Ned", 
+  habilidad = (Habilidad 15 80)
+}
+
+rafa = UnJugador { 
+  nombre ="Rafa", 
+  padre= "Gorgory", 
+  habilidad = (Habilidad 10 1)
+}
+-----------------------------------
+
 
 data Tiro = UnTiro {
   velocidad :: Int,
@@ -66,13 +68,18 @@ alturaN :: Int -> Int
 alturaN n = max 0 (n-3) 
 
 palos :: [Palo]
-palos = [putter, madera, hierro 1, hierro 2, hierro 3 ,hierro 4, hierro 5, hierro 6, hierro 7, hierro 8, hierro 9, hierro 10]
+-- palos = [putter, madera, hierro 1, hierro 2, hierro 3 ,hierro 4, hierro 5, hierro 6, hierro 7, hierro 8, hierro 9, hierro 10]
+palos = [putter, madera] ++ map hierro [1..10]
 
 golpe :: Palo -> Jugador -> Tiro
 golpe palo = palo.habilidad
 
 golpe':: Jugador -> Palo -> Tiro
 golpe' jugador palo = palo (habilidad jugador)
+
+golpe'' :: Jugador -> Palo -> Tiro
+golpe'' jugador palo = palo.habilidad $ jugador
+
 -- PUNTO 3 -----
 
 {-Un túnel con rampita sólo es superado si la precisión es mayor a 90 yendo al ras del suelo, independientemente de la velocidad del tiro. 
@@ -144,7 +151,8 @@ tiroEjemplo = configurarTiro 10 95 0
 -- Definir paloMasUtil que recibe una persona y una lista de obstáculos y determina cuál es el palo que le permite superar más obstáculos con un solo tiro.
 
 paloMasUtil :: Jugador -> [TipoObstaculo] -> Palo
-paloMasUtil jugador listaObstaculos = head (filter ( ( == (mayorNumeroDeSuperados jugador listaObstaculos palos)).(cuantosSuperaDe listaObstaculos).(golpe' jugador) ) palos )
+paloMasUtil jugador listaObstaculos = head (filter (filtro ) palos )
+  where filtro = ( == (mayorNumeroDeSuperados jugador listaObstaculos palos)).(cuantosSuperaDe listaObstaculos).(golpe' jugador)
 
 
 mayorNumeroDeSuperados :: Jugador -> [TipoObstaculo] -> [Palo] -> Int
