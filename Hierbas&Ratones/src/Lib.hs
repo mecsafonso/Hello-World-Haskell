@@ -167,3 +167,16 @@ experimentoBF3 = realizarExperimentoBF3 0
 
 realizarExperimentoBF3 valorIdeal comunidad | lograEstabilizar comunidad (reduceFatFast valorIdeal) = valorIdeal
             | otherwise = realizarExperimentoBF3 (valorIdeal + 1 ) comunidad
+
+
+--- PUNTO 5
+
+-- Queremos saber si un medicamento logra estabilizar una comunidad infinita. ¿Podemos saberlo? Responder en estos dos casos:
+-- Si todos los ratones quedan con menos de 1kg y sin enfermedades. Justificar.
+-- Si un ratón queda con 2kg y 4 enfermedades. Justificar.
+
+-- Debido a la lazy evaluation (en algunos casos) es posible saber si un ratón queda con 2kg y 4 enfermedades, ya que en el momento
+-- que se encuentre un raton que cumpla etsa condicion se dejará de evaluar la expresión
+-- Por el contrario, es imposible saber si todos los ratones quedan con menos de 1kg y sin enfermedades de una comunidad infinita ya que
+-- nunca se terminará de evaluar la expresión
+
