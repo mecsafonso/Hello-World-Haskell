@@ -88,3 +88,37 @@ perderPeso :: Float -> Raton -> Raton
 perderPeso cantidadAQuitar raton = raton { 
     peso = max 0 (peso raton - cantidadAQuitar)
 }
+
+
+--- PUNTO 3
+
+-- Los medicamentos son la administración sucesiva de un conjunto de hierbas. 
+-- Se pide crear los siguientes medicamentos para luego poder administrarlos en un ratón: 
+
+-- Hacer el pondsAntiAge, que es un medicamento que está hecho con 3 hierbas buenas y una alcachofa. iterate
+-- Por ejemplo, si se lo administramos al ratón Bicenterrata, queda con 2 años y 0.19 kg 
+
+pondsAntiAge = hierbaBuena.hierbaBuena.hierbaBuena.alcachofa
+
+-- Hacer el reduceFatFast, (que viene en distintas potencias) y es un medicamento compuesto por una hierbaVerde de “obesidad” 
+-- y tantas alcachofas como indique su potencia.
+-- Por ejemplo administrándole a Huesudo un reduceFatFast de potencia 1 hace que huesudo pase a pesar 9 kg y sólo quede con sinusitis. 
+-- Si en lugar de la 1 le administramos un reduceFatFast de potencia 2, pasa a pesar 8.1 kg y queda también solo con sinusitis.
+
+reduceFatFast :: Int -> Raton -> Raton
+reduceFatFast potencia = (hierbaVerde "Obesidad").(aplicarNVeces potencia alcachofa)
+
+aplicarNVeces :: Int -> Hierba -> Raton -> Raton
+aplicarNVeces 0 hierba raton = raton
+aplicarNVeces n hierba raton = aplicarNVeces (n-1) hierba (hierba raton)
+
+-- Hacer la pdepCilina, que es un medicamento que usa hierbasVerdes para curar todas las enfermedades infecciosas. 
+-- Las enfermedades infecciosas son aquellas cuyo nombre termina de alguna de estas formas (utilizar esta constante):
+sufijosInfecciosas = [ "sis", "itis", "emia", "cocos"]
+
+pdepCilina :: Raton -> Raton
+pdepCilina raton =  foldl (aplicar) raton (map hierbaVerde sufijosInfecciosas)
+    where aplicar x y = y x
+
+
+
