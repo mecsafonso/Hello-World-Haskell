@@ -94,6 +94,7 @@ perderPeso cantidadAQuitar raton = raton {
 
 -- Los medicamentos son la administración sucesiva de un conjunto de hierbas. 
 -- Se pide crear los siguientes medicamentos para luego poder administrarlos en un ratón: 
+type Medicamento = Raton -> Raton
 
 -- Hacer el pondsAntiAge, que es un medicamento que está hecho con 3 hierbas buenas y una alcachofa. iterate
 -- Por ejemplo, si se lo administramos al ratón Bicenterrata, queda con 2 años y 0.19 kg 
@@ -105,10 +106,10 @@ pondsAntiAge = hierbaBuena.hierbaBuena.hierbaBuena.alcachofa
 -- Por ejemplo administrándole a Huesudo un reduceFatFast de potencia 1 hace que huesudo pase a pesar 9 kg y sólo quede con sinusitis. 
 -- Si en lugar de la 1 le administramos un reduceFatFast de potencia 2, pasa a pesar 8.1 kg y queda también solo con sinusitis.
 
-reduceFatFast :: Int -> Raton -> Raton
+reduceFatFast :: Int -> Medicamento
 reduceFatFast potencia = (hierbaVerde "Obesidad").(aplicarNVeces potencia alcachofa)
 
-aplicarNVeces :: Int -> Hierba -> Raton -> Raton
+aplicarNVeces :: Int -> Hierba -> Medicamento
 aplicarNVeces 0 hierba raton = raton
 aplicarNVeces n hierba raton = aplicarNVeces (n-1) hierba (hierba raton)
 
@@ -116,9 +117,53 @@ aplicarNVeces n hierba raton = aplicarNVeces (n-1) hierba (hierba raton)
 -- Las enfermedades infecciosas son aquellas cuyo nombre termina de alguna de estas formas (utilizar esta constante):
 sufijosInfecciosas = [ "sis", "itis", "emia", "cocos"]
 
-pdepCilina :: Raton -> Raton
+pdepCilina :: Medicamento
 pdepCilina raton =  foldl (aplicar) raton (map hierbaVerde sufijosInfecciosas)
     where aplicar x y = y x
 
 
+--- PUNTO 4
 
+-- Experimento: Los laboratorios antes de publicar un medicamento, lo prueban con distintos ratones para evaluar los resultados:
+-- Hacer la función que encuentra la cantidadIdeal. Recibe una condición y dice cuál es el primer número natural que la cumple.
+
+
+cantidadIdeal :: (Int -> Bool) -> Int
+cantidadIdeal = head . flip filter [1,2..]
+
+-- Saber si un medicamento lograEstabilizar una comunidad de ratones. 
+-- Esto sucede cuando, luego de aplicarle el medicamento a todos los ratones de la comunidad, 
+-- se elimina el sobrepeso y todos tienen menos de 3 enfermedades. Un ratón tiene sobrepeso si pesa más de 1kg.
+
+type Comunidad = [Raton]
+
+lograEstabilizar :: Comunidad -> Medicamento -> Bool
+lograEstabilizar comunidad medicamento = (pocasEnfermedades . aplicarleATodos comunidad) medicamento && (noHaySobrepeso . aplicarleATodos comunidad) medicamento
+
+aplicarleATodos :: Comunidad -> Medicamento -> Comunidad
+aplicarleATodos comunidad = flip map comunidad 
+
+noHaySobrepeso :: Comunidad -> Bool
+noHaySobrepeso = not . any tieneSobrepeso
+
+tieneSobrepeso :: Raton -> Bool
+tieneSobrepeso = (>1).peso
+
+pocasEnfermedades :: Comunidad -> Bool
+pocasEnfermedades comunidad = all pocaEnfremedad comunidad
+
+pocaEnfremedad :: Raton -> Bool
+pocaEnfremedad = (<3).length.enfermedades
+
+
+-- Diseñar el siguiente experimento: dado una comunidad de ratones,
+-- encontrar la potencia ideal del reduceFatFast necesaria para estabilizar la comunidad.
+
+comunidadEjemplo = [ huesudo, bicenterrata]
+
+experimentoBF3 :: Comunidad -> Int
+experimentoBF3 = realizarExperimentoBF3 0
+
+
+realizarExperimentoBF3 valorIdeal comunidad | lograEstabilizar comunidad (reduceFatFast valorIdeal) = valorIdeal
+            | otherwise = realizarExperimentoBF3 (valorIdeal + 1 ) comunidad
