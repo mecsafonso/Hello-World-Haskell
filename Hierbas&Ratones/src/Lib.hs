@@ -180,3 +180,6 @@ realizarExperimentoBF3 valorIdeal comunidad | lograEstabilizar comunidad (reduce
 -- Por el contrario, es imposible saber si todos los ratones quedan con menos de 1kg y sin enfermedades de una comunidad infinita ya que
 -- nunca se terminará de evaluar la expresión
 
+--- PUNTO 6
+
+ -- TAD
