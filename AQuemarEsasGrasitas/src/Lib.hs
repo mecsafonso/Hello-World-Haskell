@@ -138,4 +138,18 @@ obtenerResumen :: Rutina -> Gimnasta -> Resumen
 obtenerResumen rut gimn = (nombreRutina rut, cantidadPerdida peso rut gimn , cantidadPerdida tonif rut gimn)
 
 cantidadPerdida :: (Gimnasta -> Float) -> Rutina -> Gimnasta -> Float
-cantidadPerdida f rut gimn =  f gimn - (f (realizarRutina rut gimn))
+cantidadPerdida f rut gimn =  abs ( f gimn - (f (realizarRutina rut gimn)) )
+
+
+
+-- PUNTO 5 
+    {- Dada una lista de rutinas, obtener un resumen de todas las que (individualmente) pueden llevar a un gimnasta dado a estar saludable.-}
+
+resumenDeBuenasRutinas :: [Rutina] -> Gimnasta -> [Resumen]
+resumenDeBuenasRutinas listaRutinas gimn = map (flip obtenerResumen gimn) (listaBuenasRutinas listaRutinas gimn)
+
+listaBuenasRutinas :: [Rutina] -> Gimnasta -> [Rutina]
+listaBuenasRutinas listaRutinas gimn = filter ( esBuenaRutina gimn) listaRutinas
+
+esBuenaRutina :: Gimnasta -> Rutina -> Bool
+esBuenaRutina gimnasta rutina = saludable.(realizarRutina rutina) $ gimnasta
