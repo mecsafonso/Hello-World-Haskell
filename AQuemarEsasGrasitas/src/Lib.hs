@@ -90,3 +90,52 @@ colina inclinacion duracion = flip quemarCalorias (2*duracion*inclinacion)
 
 montaña :: Float -> Ejercicio
 montaña inclinacionInicial duracion  = tonificar 1 . colina (inclinacionInicial + 3)  (duracion/2) . colina inclinacionInicial ( duracion/2 )  
+
+
+-- PUNTO 4
+
+    -- PARTE A
+
+data Rutina = UnaRutina {
+    nombreRutina :: String,
+    duracionTotal :: Float,
+    listaEjs :: [Ejercicio]
+} deriving (Show)
+
+rutinaCompleta = UnaRutina { 
+    nombreRutina = "La Matadora",
+    duracionTotal = 20,
+    listaEjs = [caminataEnCinta, entrenamientoEnCinta, (pesas 50), (colina 5), (montaña 5)]
+}
+
+-- Recursividad
+realizarRutina :: Rutina -> Gimnasta -> Gimnasta
+realizarRutina rutina gimnasta = ponerAEjercitar gimnasta (duracionTotal rutina) (listaEjs rutina) 
+
+ponerAEjercitar :: Gimnasta -> Float -> [Ejercicio] -> Gimnasta
+ponerAEjercitar gimnasta duracion [] = gimnasta
+ponerAEjercitar gimnasta duracion (x:xs) = ponerAEjercitar (x duracion gimnasta) duracion xs
+
+    -- Ejemplo: realizarRutina rutinaCompleta pancho
+
+-- Fold
+realizarRutina' :: Rutina -> Gimnasta -> Gimnasta
+realizarRutina' rutina gimnasta = foldl (realizarEjercicio (duracionTotal rutina) ) gimnasta (listaEjs rutina)
+
+realizarEjercicio :: Float -> Gimnasta -> Ejercicio -> Gimnasta
+realizarEjercicio duracion gimnasta ejercicio = ejercicio duracion gimnasta
+
+    -- Ejemplo: realizarRutina' rutinaCompleta pancho
+
+
+    -- PARTE B
+{-  Dada una rutina y un gimnasta, obtener el resumen de rutina que es una tupla con 
+    el nombre de la misma, los kilos perdidos y la tonificación ganada por dicho gimnasta al realizarla.    -}
+
+type Resumen = (String, Float, Float)
+
+obtenerResumen :: Rutina -> Gimnasta -> Resumen
+obtenerResumen rut gimn = (nombreRutina rut, cantidadPerdida peso rut gimn , cantidadPerdida tonif rut gimn)
+
+cantidadPerdida :: (Gimnasta -> Float) -> Rutina -> Gimnasta -> Float
+cantidadPerdida f rut gimn =  f gimn - (f (realizarRutina rut gimn))
