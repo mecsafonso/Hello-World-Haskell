@@ -3,6 +3,7 @@ import Text.Show.Functions
 
 laVerdad = True
 
+{-
 
 data Festival = UnFestival {
   lugar :: String,
@@ -53,6 +54,9 @@ efectoMetal terminacion publ = publ {animoInicial = animoInicial publ ++ " " ++ 
 agregarPorcentual :: Float -> Publico -> Publico
 agregarPorcentual porcentaje publ= publ {cantidad = (cantidad publ) * porcentaje}
 
+
+
+
 --- PUNTO 2
 
 -- Modelado de Ejemplos
@@ -96,6 +100,14 @@ hullabalooza = UnFestival {
 -- theStrokers = UnaBanda {descripcion = ["suicidio asistido", "emocional" , "linda"], decibeles = 45, genero = }
 
 
+
+
+
+
+
+
+
+
 --- PUNTO 4
 
 -- Definir la función suceder, que hace que suceda un festival. 
@@ -119,6 +131,7 @@ Legendaria. Debe estar descripta como “legendaria” y tocar a más de 40 deci
 
 Definir las funciones que permitan clasificar a las bandas. Una banda puede clasificarse de más de una manera a la vez o ninguna.
 -}
+
 
 type Clasificacion = String
 type Criterio = ( (Banda -> Bool), Clasificacion)
@@ -148,6 +161,8 @@ condLegendaria band = elem "legendaria" (descripcion band) && muchoRuido 40 band
 
 muchoRuido :: Int -> Banda -> Bool
 muchoRuido x = (> x) . decibeles 
+
+
 
 
 --- PUNTO 6
@@ -188,3 +203,4 @@ cond2 fest listaC=  (>1000).popularidadTotal listaC .listaBandas $ fest
 popularidadTotal :: [Criterio] -> [Banda] -> Int
 popularidadTotal listaC = sum . map (flip popularidad listaC)
 
+-}
