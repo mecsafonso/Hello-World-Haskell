@@ -17,7 +17,7 @@ data Pais = UnPais {
     poblacionSPri :: Float,
     recursos :: [Recurso],
     deudaFMI :: Float
-}
+} deriving (Show)
 
     -- Parte b
 
@@ -26,9 +26,9 @@ namibia = UnPais {
     ingresoPC = 4140,
     poblacionSPub = 400000,
     poblacionSPri = 650000,
-    recursos = ["mineria","ecoturismo"], 
+    recursos = ["Minería","ecoturismo"], 
     deudaFMI = 50
-}
+} 
 
 -- PUNTO 2
 
@@ -83,5 +83,29 @@ blindaje = prestamoPBI . disminuirPoblaciónSPub' 500
 prestamoPBI :: Pais -> Pais
 prestamoPBI pais = undefined
 
+pBI :: Pais -> Float
+pBI pais = ingresoPC pais * poblacionActiva pais 
+
+poblacionActiva :: Pais -> Float
+poblacionActiva pais = (+ poblacionSPub pais). poblacionSPri $ pais
+
 disminuirPoblaciónSPub' :: Float -> Pais -> Pais
 disminuirPoblaciónSPub' n pais = pais {poblacionSPub = poblacionSPub pais - n}
+
+
+
+-- PUNTO 3
+
+    -- Modelar una receta que consista en prestar 200 millones, y darle a una empresa X la explotación de la “Minería” de un país.
+
+type Receta = Pais -> Pais
+
+recetaEjemplo :: Receta
+recetaEjemplo = prestarleNMill 200 . darRN "Minería"
+
+    -- Ahora queremos aplicar la receta del punto 3.a al país Namibia (creado en el punto 1.b). Justificar cómo se logra el efecto colateral.
+
+ejemploPunto3b = recetaEjemplo namibia
+
+
+-- PUNTO 4
